@@ -14,7 +14,7 @@ const questions =[
         answers: [
                 {text: "Vatican city", correct: true},
                 {text: "Bhutan", correct: false},
-                {text: "Nepa;", correct: false},
+                {text: "Nepal", correct: false},
                 {text: "Shri Lanka", correct: false}  
         ]
     },
@@ -51,7 +51,6 @@ const questionElement = document.getElementById("question");
 const answerButton = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
 
-console.log(answerButton);
 let currentQuestionIndex = 0;
 let score = 0;
 
@@ -89,13 +88,14 @@ function selectAnswer(e){
     const isCorrect = selectedBtn.dataset.correct === "true";
     if(isCorrect){
         selectedBtn.classList.add("correct");
+        score++;
     }else{
         selectedBtn.classList.add("incorrect");
     }
     Array.from(answerButton.children).forEach(button => {
         if(button.dataset.correct === "true"){
             button.classList.add("correct");
-            score++;
+            
         }
         button.disabled = true;
     });
