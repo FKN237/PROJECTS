@@ -9,7 +9,12 @@ inputBox.addEventListener("keydown", (e) => {
         }
     });
 
-
+clearList.addEventListener("click", ()=>{
+    listContainer.innerHTML = "";
+    localStorage.clear();
+    clearList.style.display = "none";
+    saveData();
+})
 
 
 function addTask(){
@@ -24,6 +29,7 @@ function addTask(){
         let span = document.createElement("span");
         span.innerHTML = "\u00d7";
         li.appendChild(span);
+
         clearList.style.display = "block";
 
     }
@@ -36,14 +42,15 @@ function addTask(){
 listContainer.addEventListener("click", function(e){
     if(e.target.tagName === "LI"){
         e.target.classList.toggle("checked");
+        saveData();
     }
     else if(e.target.tagName === "SPAN"){
         e.target.parentElement.remove();
-        saveData();
         if(listContainer.children.length === 0){
             console.log("cleared buddy");
-        clearList.style.display = "none";
+            clearList.style.display = "none";
     }
+    saveData();
         
     }
 }, false);
@@ -52,10 +59,15 @@ listContainer.addEventListener("click", function(e){
 
 function saveData(){
     localStorage.setItem("data", listContainer.innerHTML);
+    localStorage.setItem("cleared", clearList.innerHTML);
 }
 
 function showTask(){
+
     listContainer.innerHTML = localStorage.getItem("data");
+    clearList.innerHTML = localStorage.getItem("cleared");
+    
 }
+
 
 showTask();
