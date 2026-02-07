@@ -1,7 +1,19 @@
 const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
+const clearList = document.querySelector(".clear-list");
+
+
+inputBox.addEventListener("keydown", (e) => {
+        if(e.key == "Enter"){
+            addTask();
+        }
+    });
+
+
+
 
 function addTask(){
+
     if(inputBox.value === ''){
         alert("You must write something");
     }
@@ -12,9 +24,14 @@ function addTask(){
         let span = document.createElement("span");
         span.innerHTML = "\u00d7";
         li.appendChild(span);
+        clearList.style.display = "block";
+
     }
     inputBox.value = "";
+    saveData();
 }
+
+
 
 listContainer.addEventListener("click", function(e){
     if(e.target.tagName === "LI"){
@@ -22,5 +39,23 @@ listContainer.addEventListener("click", function(e){
     }
     else if(e.target.tagName === "SPAN"){
         e.target.parentElement.remove();
+        saveData();
+        if(listContainer.children.length === 0){
+            console.log("cleared buddy");
+        clearList.style.display = "none";
+    }
+        
     }
 }, false);
+
+    
+
+function saveData(){
+    localStorage.setItem("data", listContainer.innerHTML);
+}
+
+function showTask(){
+    listContainer.innerHTML = localStorage.getItem("data");
+}
+
+showTask();
