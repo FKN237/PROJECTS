@@ -45,3 +45,61 @@ const questions =[
         ]
     }
 ]
+
+const questionElement = document.getElementById("question");
+const answerButtons = document.getElementById("answer-buttons");
+const nextButton = document.getElementById("next-btn");
+
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+function startQuiz(){
+    currentQuestionIndex = 0;
+    score = 0;
+    nextButton.innerHTML = "Next";
+    showQuestion();
+}
+
+function showQuestion(){
+
+    
+
+    let currentQuestion = questions[currentQuestionIndex];
+    let questionNo = currentQuestionIndex + 1;
+    questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+
+    resetState();
+
+    currentQuestion.answers.forEach(answer => {
+        const buttoning = document.createElement("button");
+        buttoning.innerHTML = answer.text;
+        buttoning.classList.add("btn");
+        answerButtons.appendChild(buttoning);
+    });
+
+    
+}
+
+
+
+function resetState(){
+    nextButton.style.display = "none";
+    while(answerButtons.firstChild){
+        answerButtons.removeChild(answerButtons.firstChild);
+    }
+
+}
+
+
+startQuiz();
+
+
+
+
+
+
+
+
+
+
