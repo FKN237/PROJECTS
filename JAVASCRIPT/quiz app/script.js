@@ -139,12 +139,4 @@ function resetState(){
 
 }
 
-
-
 startQuiz();
-
-
-
-
-
-
